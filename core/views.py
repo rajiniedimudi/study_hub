@@ -19,7 +19,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 import json
 import requests
-
+from django.conf import settings
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -372,7 +372,7 @@ class DeleteNoteView(LoginRequiredMixin, View):
     
 
 def chatgpt(topic):
-    # api_key = ""  # GPT 3
+    api_key = settings.API_KEY  # GPT 3
     # Send prompt GPT 3
     headers = {
         "Content-Type": "application/json",
