@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>STUDENT SIGNIN</title>
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
+    <!-- Fontawesome ICONS link -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Tilt+Neon&display=swap" rel="stylesheet">    
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    <style>
+        .gradient-custom-3 {
+          background: #846dfa;
+          background: transparent;
+          background: transparent;
+        }
+        .gradient-custom-4 {
+          background: #846dfa;
+          background: -webkit-linear-gradient(to left, #9d6bf1, #846dfa);
+          background: linear-gradient(to left, #9d6bf1, #846dfa);
+          outline: none;
+          border: none;
+          color: #fff;
+          text-transform: uppercase;
+          cursor: pointer;
+        }
+        .form-label{
+            color: #36473c;
+        }
+        a.navbar-brand{
+            color: #fff;
+            font-size: 30px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        a{
+          color: #846dfa;
+        }
+        a:hover{
+          text-decoration: none;
+          color: #a497e6;
+        }
+        i.fa{
+          font-size: 25px;
+        }
+        body,section {
+            background-image: url("{% static '/img/sude-soyluturk-qCYrA9qg-_4-unsplash.jpg' %}");
+            background-position: center;
+            background-size: cover;
+            color: #fff;
+            background-repeat: no-repeat;
+        }
+        /* Glassmorphism card effect */
+        .card {
+            backdrop-filter: blur(0) saturate(180%);
+            -webkit-backdrop-filter: blur(0) saturate(180%);
+            background-color: rgba(17, 25, 40, 0.75);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+        }
+        .form-outline label, label>*, nav a:hover{
+          color: #fff;
+        }
+        span{
+            color:red;
+        }
+    </style>
+<!-- background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1)) -->
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg p-md-3 border-bottom">
+      <a class="navbar-brand mx-5" href="#">study hub</a>
+    </nav>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+            <div class="alert alert-{{ message.tags }} d-flex justify-content-center align-items-center" role="alert">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+            </div>
+            {% else %}
+            <div class="alert alert-primary" role="alert">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <section class="vh-100 bg-image pt-5 pb-3">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body px-5">
+                <h2 class="text-uppercase text-center mb-4">SIGNIN</h2>
+                <form action="{% url 'sign-in' %}" method="post">
+                    {% csrf_token %}
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="email">Email &nbsp;<i class="fa fa-envelope-o" style="font-size: 15px;" aria-hidden="true"></i></label>
+                    <input type="email" id="email" name="email" class="form-control form-control-md" placeholder="Email" required/>
+                  </div> 
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="password">Password &nbsp;<i class="fa fa-lock"  style="font-size: 15px;" aria-hidden="true"></i></label>
+                    <input type="password" id="password" name="password" class="form-control form-control-md" placeholder="Password" required/>
+                 </div>                 
+                  <div class="d-flex justify-content-center mt-4">
+                    <button class="btn-block btn-lg gradient-custom-4 " type="submit">sign in</button>
+                  </div>
+                  <p class="text-center text-muted mt-3 mb-1">Forgot Password? &nbsp;<a href="{% url 'reset_password' %}"
+                    class="fw-bold text-body">Reset</a></p>
+                    <p class="text-muted text-center mb-0">OR</p>
+                  <p class="text-center text-muted mt-1">Don't you have an account? &nbsp;<a href="{% url 'sign-up' %}"
+                      class="fw-bold text-body">Signup</a></p><hr/>
+                   <a href="{% url 'home' %}"class="row d-flex justify-content-center align-items-center mt-3 fw-bold">
+                    HOME &nbsp;<i class="fa fa-home" aria-hidden="true"></i>
+                   </a></p>
+  
+                </form>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+div .navbar-brand{
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: bold;
+}
+a.nav-link, a.navbar-brand:hover {
+    color: #fff;
+    text-decoration: none;
+}
+a.nav-link:hover{
+    text-decoration: underline;
+    color: #fff;
+}
+a.active:hover, a.log-link:hover{
+    text-decoration: none;
+}
+i.fa-user-circle{
+    font-size: 25px;
+}   
+.log-link{
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+div.container{
+  background-color: #f1f0f0;
+  border-radius: 10px;
+}
+/* HTML: <div class="loader"></div> */
+.loader {
+width: 45px;
+aspect-ratio: 1;
+--c: no-repeat linear-gradient(#000 0 0);
+background: 
+  var(--c) 0%   50%,
+  var(--c) 50%  50%,
+  var(--c) 100% 50%;
+background-size: 20% 100%;
+animation: l1 1s infinite linear;
+}
+@keyframes l1 {
+0%  {background-size: 20% 100%,20% 100%,20% 100%}
+33% {background-size: 20% 10% ,20% 100%,20% 100%}
+50% {background-size: 20% 100%,20% 10% ,20% 100%}
+66% {background-size: 20% 100%,20% 100%,20% 10% }
+100%{background-size: 20% 100%,20% 100%,20% 100%}
+}
+
+  /* checkbox styles */
+  .radio-tile-group {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .radio-tile-group .input-container {
+    position: relative;
+    height: 80px;
+    margin: 0.5rem;
+    fill: #079ad9;
+    height: 2rem;
+  }
+  
+  .radio-tile-group .input-container .radio-button {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+  }
+  
+  .radio-tile-group .input-container .radio-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: 2px solid #079ad9;
+    border-radius: 5px;
+    padding: 1rem;
+    transition: transform 300ms ease;
+    cursor: pointer;
+  }
+  
+  
+  .radio-tile-group .input-container .radio-tile-label {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #079ad9;
+    cursor: pointer;
+  }
+  
+  .radio-tile-group .input-container .radio-button:checked + .radio-tile {
+    background-color: #079ad9;
+    border: 2px solid #079ad9;
+    color: white;
+    transform: scale(1.1, 1.1);
+  }
+  
+  .radio-tile-group .input-container .radio-button:checked + .radio-tile{
+    fill: white;
+    background-color: #079ad9;
+  }
+  
+  .radio-tile-group .input-container .radio-button:checked + .radio-tile .radio-tile-label {
+    color: white;
+    background-color: #079ad9;
+  }
+  
+  textarea{
+    border: 1px solid #079ad9;
+    border-radius: 10px;
+    outline: none;
+    padding: 10px;
+    color: #2b2b2b;
+  }
+
+  #submitBtn{
+    text-transform: uppercase;
+    outline: none;
+    background-color: #846dfa;
+    padding: 8px 20px;
+    color: #fff;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    border: none;
+  }

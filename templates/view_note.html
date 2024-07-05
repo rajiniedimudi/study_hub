@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>About Note</title>
+    <link rel="stylesheet" href="">
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
+    <!-- Fontawesome ICONS link -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Tilt+Neon&display=swap" rel="stylesheet">    
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    <style>
+         div .navbar-brand{
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        a.nav-link, a.navbar-brand:hover {
+            color: #fff;
+            text-decoration: none;
+        }  
+        a.nav-link:hover{
+            text-decoration: underline;
+            color: #fff;
+        }
+        a.active:hover, a.log-link:hover{
+            text-decoration: none;
+        }
+        i.fa-user-circle{
+            font-size: 25px;
+        }   
+        .log-link{
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        i.fa-file-text-o, .fa-book{
+            font-size: 20px;
+            text-decoration: none;
+        }
+        div.container{
+          background-color: #fff;
+          border-radius: 10px;
+        }
+        button.gradient-custom-4{
+          background-color: #5d00fd;
+          color: #fff;
+        }
+        .gradient-custom-4:hover{
+          color: #5d00fd;
+          background-color: #fff;
+          border: 1px solid rgb(93, 0, 253);
+        }
+        .fa-exclamation-circle{
+            color: #fdcf00;
+        }
+        @media screen and (max-width: 420px) {
+        iframe{
+          width:200px;
+          height: 100px;
+        }}
+        body {
+            background-image: url("{% static '/img/sude-soyluturk-qCYrA9qg-_4-unsplash.jpg' %}");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg p-md-3 border-bottom">
+        <div class="mx-md-5 ml-3"><a class="navbar-brand" href="{% url 'home' %}">study hub</a></div>
+          <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        <div class="d-lg-flex justify-content-between collapse navbar-collapse" id="navbarTogglerDemo01">
+          {% if user.is_authenticated %}
+          <ul class="navbar-nav mx-auto mt-1">
+            <li class="nav-item active mx-lg-3 ml-md-5 ml-sm-3">
+              <a class="nav-link" href="{% url 'home' %}">HOME</a>
+            </li>
+            <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
+                <a class="nav-link" href="{% url 'subjects' %}">SUBJECTS</a>
+              </li>
+              <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
+                <a class="nav-link" href="{% url 'notes' %}">NOTES</a>
+              </li>
+            <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
+              <a class="nav-link" href="#">BOOKS</a>
+            </li>
+          </ul>
+          {% else %}
+          <ul class="navbar-nav mx-auto mt-1">
+            <li class="nav-item active mx-lg-3 ml-md-5 ml-sm-3">
+              <a class="nav-link" href="#">HOME</a>
+            </li>
+            <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
+                <a class="nav-link active" href="#">SUBJECTS</a>
+              </li>
+              <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
+                <a class="nav-link" href="#">NOTES</a>
+              </li>
+            <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
+              <a class="nav-link" href="#">BOOKS</a>
+            </li>
+          </ul>
+          {% endif %}
+            <div class="sign d-flex mx-md-4">
+
+              {% if not user.is_authenticated %}
+              <a class="nav-link log-link" href="{% url 'login-as' %}">LOGIN &nbsp;&nbsp;<i class="fa fa-user-circle" aria-hidden="true"></i></a>
+              {% else %}
+              <a class="nav-link log-link username" href="{% url 'profile-update' user.pk %}">{{ user.first_name}} &nbsp;&nbsp;<i class="fa fa-user-circle" aria-hidden="true"></i></a>
+              {% endif %}
+          </div>
+        </div>
+    </nav>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+            <div class="alert alert-{{ message.tags }} d-flex justify-content-center align-items-center" role="alert">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+            </div>
+            {% else %}
+            <div class="alert alert-primary" role="alert">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <div class="conatiner p-3 my-3">
+        {% if note %}
+        <div class="card mt-3 pb-5">
+            <div class="card-header">
+                <h3>ABOUT NOTE</h3>
+                <div class="float-right">
+                {% if usertype == 'teacher' %}
+                <!-- Button trigger modal -->
+                <button type="button" class="gradient-custom-4 btn btn-light font-weight-bold" data-toggle="modal" data-target="#noteUpdate">
+                    Update &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-danger font-weight-bold" data-toggle="modal" data-target="#noteDelete">Delete&nbsp;
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+                {% endif %}
+                
+                </div>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title pt-2">Topic : {{ note.topic }}</h4> 
+                <p class="card-subtitle text-muted py-2 ">class {{ note.class_standard }} | {{ note.subject_name }}</p> <hr/>
+                <h5 class="card-title mt-4">Description </h5>             
+                <p class="card-text pb-4 text-justify ml-sm-5 pl-sm-5" style="text-indent: 30px;"> {{ note.description }} 
+                    <hr/>
+                <h5 class="card-title py-2">
+                    Videos &nbsp; <span data-toggle="tooltip" data-placement="top" 
+                    title="If Video is not loading, Please watch by click below link.">
+                    <i class="fa fa-exclamation-circle" aria-hidden="true" ></i></span>
+                </h5>
+                {% if links %}
+                <div class="ml-sm-5 pl-sm-5">
+                    <iframe src="https://www.youtube.com/embed/{{ links }}" title="{{ note.topic }}" width="300" height="200"
+                    style="outline: none; border: none"></iframe><br/>
+                    <a href="{{ note.links }}" class="btn pt-3 " target="_blank" style="font-size:18px;">View on Youtube&nbsp;&nbsp;
+                        <i class="fa fa-youtube-play" aria-hidden="true" style="color:red;"></i></a>
+                </div>
+                {% else %}
+                <p class="text-muted text-center"> No videos available ... 
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <!-- update Modal -->
+    <div class="modal fade" id="noteUpdate" tabindex="-1" role="dialog" aria-labelledby="noteUpdateLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title font-weight-bold text-dark" id="noteUpdateLabel">Update Note</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="{% url 'view-note' subject_id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" value="{{ note.id }}" name="id"/>
+                <div class="form-outline mb-3">
+                    <label class="form-label" for="subject">Subject</label>
+                    <select class="custom-select" name="subject" id="subject">
+                      {% for subject in subjects %}
+                        <option value="{{ subject }}" {% if subject ==  note.subject_name %} selected {% endif %} >{{ subject }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-outline mb-3">
+                    <label class="form-label" for="class_standard">Class</label>
+                    <select class="custom-select" name="class_standard" id="class_standard">
+                      {% for class_no in classes %}
+                      <option value="{{ class_no }}" {% if class_no ==  note.class_standard %} selected {% endif %} >class {{ class_no }}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+                <div class="form-outline mb-3">
+                    <label class="form-label" for="topic">Topic</label>
+                    <input type="text" id="topic" name="topic" value="{{ note.topic }}" class="form-control form-control-md" placeholder="topic" required/>
+                </div> 
+                <div class="form-outline mb-3">
+                    <label class="form-label" for="details">Content</label>
+                    <textarea id="details" name="details" class="form-control form-control-md" placeholder="Describe about it...">{{ note.description }}</textarea>
+                </div> 
+                <div class="form-outline mb-3">
+                    <label class="form-label" for="links">Youtube Links</label>
+                    <input type="text" id="links" name="links" value="{{ note.links }}" class="form-control form-control-md"/>  
+                </div>
+                <div class="my-3">
+                    <button class="btn btn-light gradient-custom-4" type="submit"> UPDATE</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
+                </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- delete modal -->
+    <div class="modal fade" id="noteDelete" tabindex="-1" role="dialog" aria-labelledby="noteDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold text-dark" id="noteDeleteLabel">Delete Note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'delete-note' subject_id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <p class="text-center py-2">Are you sure want to delete this Note ?</p>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-danger mr-2 m-3">DELETE</button>
+                    <button type="button" class="btn btn-secondary ml-2 m-3" data-dismiss="modal" aria-label="Close">
+                        CANCEL</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+  
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
