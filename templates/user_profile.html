@@ -19,19 +19,18 @@
             color: red;
         }
         div .navbar-brand{
-            color: #fff;
+            color: #ed6b6d;
             text-transform: uppercase;
             font-size: 25px;
             font-weight: bold;
         }
-        a.nav-link {
-            color: #fff;
+        a.nav-link, h3 {
+            color: #ed6b6d;
             text-decoration: none;
         }
 
         a.nav-link:hover{
             text-decoration: underline;
-            color: #fff;
         }
         a.log-link:hover{
             text-decoration: none;
@@ -40,19 +39,21 @@
             font-size: 25px;
         }   
         .log-link{
-            color: #fff;
+            color: #ed6b6d;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 18px;
         }
         .gradient-custom-4 {
-            background: #846dfa;
-            background: -webkit-linear-gradient(to left, #9d6bf1, #846dfa);
-            background: linear-gradient(to left, #9d6bf1, #846dfa);
-            outline: none;
-            border: none;
-            cursor: pointer;
-            color: #fff;
+            background: #f18c90;
+          background: -webkit-linear-gradient(to left, #f18c90, #ef6a6f);
+          background: linear-gradient(to left, #f18c90, #ef6a6f);
+          outline: none;
+          border: none;
+          color: #fff;
+          text-transform: uppercase;
+          cursor: pointer;
+          font-weight: bold;
         }
         i.fa{
             font-size: 20px;
@@ -62,16 +63,17 @@
             text-decoration: none;
         }
         body {
-            background-image: url("{% static '/img/sude-soyluturk-qCYrA9qg-_4-unsplash.jpg' %}");
+            background-image: url("{% static '/img/bg.jpeg' %}");
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
+            color: #ed6b6d;
         }
     </style>
 </head>
 <body>
     <div class="d-flex justify-content-between my-md-4 mx-md-4 my-3">
-        <h3 class="text-light">ACCOUNT SETTINGS</h3>
+        <h3>ACCOUNT SETTINGS</h3>
         <a class="nav-link log-link username" href="#">{{ user.first_name}} &nbsp;&nbsp;<i class="fa fa-user-circle" aria-hidden="true"></i></a>
     </div>
     

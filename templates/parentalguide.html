@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{% static 'css/parental_guidance.css' %}">
     <style>
       body {
-            background-image: url("{% static '/img/sude-soyluturk-qCYrA9qg-_4-unsplash.jpg' %}");
+            background-image: url("{% static '/img/bg.jpeg' %}");
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
@@ -31,40 +31,11 @@
           <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-        <div class="d-lg-flex justify-content-between collapse navbar-collapse" id="navbarTogglerDemo01">
+        <div class="d-lg-flex justify-content-end collapse navbar-collapse" id="navbarTogglerDemo01">
           {% if user.is_authenticated %}
-          <ul class="navbar-nav mx-auto mt-1">
-            <li class="nav-item active mx-lg-3 ml-md-5 ml-sm-3">
-              <a class="nav-link" href="{% url 'home' %}">HOME</a>
-            </li>
-            <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
-                <a class="nav-link" href="{% url 'subjects' %}">SUBJECTS</a>
-              </li>
-              <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
-                <a class="nav-link" href="{% url 'notes' %}">NOTES</a>
-              </li>
-            <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
-              <a class="nav-link" href="{% url 'parental-guide' %}">PARENTAL GUIDANCE</a>
-            </li>
-          </ul>
             <div class="sign d-flex mx-md-4">
               <a class="nav-link log-link username" href="{% url 'profile-update' user.pk %}">{{ user.first_name}} &nbsp;&nbsp;<i class="fa fa-user-circle" aria-hidden="true"></i></a>
             </div>
-            {% else %}
-            <ul class="navbar-nav mx-auto mt-1">
-              <li class="nav-item active mx-lg-3 ml-md-5 ml-sm-3">
-                <a class="nav-link" href="#">HOME</a>
-              </li>
-              <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
-                  <a class="nav-link" href="#">SUBJECTS</a>
-                </li>
-                <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
-                  <a class="nav-link" href="#">NOTES</a>
-                </li>
-              <li class="nav-item mx-lg-3 ml-md-5 ml-sm-3">
-                <a class="nav-link" href="#">PARENTAL GUIDANCE</a>
-              </li>
-            </ul>
             {% endif %}
         </div>
     </nav>

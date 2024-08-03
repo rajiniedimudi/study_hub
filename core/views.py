@@ -232,143 +232,143 @@ class ChangePasswordView(View):
         return HttpResponseRedirect(self.request.path_info)
     
 
-class SubjectView(LoginRequiredMixin, TemplateView):
-    template_name = 'subjects.html'
-    login_url = '/sign_in/'
+# class SubjectView(LoginRequiredMixin, TemplateView):
+#     template_name = 'subjects.html'
+#     login_url = '/sign_in/'
 
 
-class AllNotesView(LoginRequiredMixin, View):
-    template_name = 'notes.html'
-    login_url = '/sign_in/'
+# class AllNotesView(LoginRequiredMixin, View):
+#     template_name = 'notes.html'
+#     login_url = '/sign_in/'
 
-    def get(self, request, *args, **kwargs):
-        kwargs_data = self.kwargs
-        get_data = self.request.GET
-        user_id = self.request.user
-        user = User.objects.filter(username=user_id)
-        context = {}
-        if user.exists():
-            user_profile = Profile.objects.filter(user=user.last())
-            context.update({'usertype': user_profile.last().user_type})
-        if 'sub_class' in kwargs_data and self.kwargs['sub_class'] != '':
-            subject_class = self.kwargs['sub_class']
-            split_url = subject_class.split('_')
-            subject = split_url[0]
-            class_no = split_url[-1]
-            notes = Notes.objects.filter(subject_name=subject, class_standard=class_no).order_by('-created_at')
-            context.update({'subject_class': subject_class, 'notes': notes})
-         # <QueryDict: {'subject': ['physics'], 'class_standard': ['8']}>
-        elif 'subject' in get_data and 'class_standard' in get_data:
-            context.update({'search_results': True})
-            if get_data['class_standard'] == '' and get_data['subject'] != '':
-                notes = Notes.objects.filter(subject_name=get_data['subject']).order_by('-created_at')
-                context.update({'notes': notes})
-            elif get_data['subject'] == '' and get_data['class_standard'] != '':
-                class_no = int(get_data['class_standard'])
-                notes = Notes.objects.filter(class_standard=class_no).order_by('-created_at')
-                context.update({'notes': notes})
-            elif get_data['subject'] != '' and get_data['class_standard'] != '':
-                class_no = int(get_data['class_standard'])
-                notes = Notes.objects.filter(class_standard=class_no,
-                                             subject_name=get_data['subject']).order_by('-created_at')
-                context.update({'notes': notes})
-            else:
-                notes = Notes.objects.all().order_by('-created_at')
-                context.update({'notes': notes})
+#     def get(self, request, *args, **kwargs):
+#         kwargs_data = self.kwargs
+#         get_data = self.request.GET
+#         user_id = self.request.user
+#         user = User.objects.filter(username=user_id)
+#         context = {}
+#         if user.exists():
+#             user_profile = Profile.objects.filter(user=user.last())
+#             context.update({'usertype': user_profile.last().user_type})
+#         if 'sub_class' in kwargs_data and self.kwargs['sub_class'] != '':
+#             subject_class = self.kwargs['sub_class']
+#             split_url = subject_class.split('_')
+#             subject = split_url[0]
+#             class_no = split_url[-1]
+#             notes = Notes.objects.filter(subject_name=subject, class_standard=class_no).order_by('-created_at')
+#             context.update({'subject_class': subject_class, 'notes': notes})
+#          # <QueryDict: {'subject': ['physics'], 'class_standard': ['8']}>
+#         elif 'subject' in get_data and 'class_standard' in get_data:
+#             context.update({'search_results': True})
+#             if get_data['class_standard'] == '' and get_data['subject'] != '':
+#                 notes = Notes.objects.filter(subject_name=get_data['subject']).order_by('-created_at')
+#                 context.update({'notes': notes})
+#             elif get_data['subject'] == '' and get_data['class_standard'] != '':
+#                 class_no = int(get_data['class_standard'])
+#                 notes = Notes.objects.filter(class_standard=class_no).order_by('-created_at')
+#                 context.update({'notes': notes})
+#             elif get_data['subject'] != '' and get_data['class_standard'] != '':
+#                 class_no = int(get_data['class_standard'])
+#                 notes = Notes.objects.filter(class_standard=class_no,
+#                                              subject_name=get_data['subject']).order_by('-created_at')
+#                 context.update({'notes': notes})
+#             else:
+#                 notes = Notes.objects.all().order_by('-created_at')
+#                 context.update({'notes': notes})
 
-        else:
-            notes = Notes.objects.all().order_by('-created_at')
-            context.update({'notes': notes})
-        return render(self.request, self.template_name, context)
+#         else:
+#             notes = Notes.objects.all().order_by('-created_at')
+#             context.update({'notes': notes})
+#         return render(self.request, self.template_name, context)
     
-    def post(self, request, *args, **kwargs):
+#     def post(self, request, *args, **kwargs):
 
-        post_data = self.request.POST
-        user_id = post_data.get('user')
-        subject = post_data.get('subject')
-        class_standard = post_data.get('class_standard')
-        topic = post_data.get('topic')
-        details = post_data.get('details')
-        links = post_data.get('links')
+#         post_data = self.request.POST
+#         user_id = post_data.get('user')
+#         subject = post_data.get('subject')
+#         class_standard = post_data.get('class_standard')
+#         topic = post_data.get('topic')
+#         details = post_data.get('details')
+#         links = post_data.get('links')
 
-        user = User.objects.filter(username=user_id)
-        timezone.activate('Asia/Kolkata')
-        current_datetime = timezone.localtime(timezone.now())
+#         user = User.objects.filter(username=user_id)
+#         timezone.activate('Asia/Kolkata')
+#         current_datetime = timezone.localtime(timezone.now())
 
-        # Save notes
-        notes = Notes.objects.create(upload_by=user.last(), subject_name=subject, class_standard=class_standard,
-                            topic=topic, description=details, created_at=current_datetime, links=links)
-        notes.save()
+#         # Save notes
+#         notes = Notes.objects.create(upload_by=user.last(), subject_name=subject, class_standard=class_standard,
+#                             topic=topic, description=details, created_at=current_datetime, links=links)
+#         notes.save()
 
-        messages.info(self.request, ' Note Added ')
+#         messages.info(self.request, ' Note Added ')
 
-        return HttpResponseRedirect(self.request.path_info)
+#         return HttpResponseRedirect(self.request.path_info)
     
     
-class NoteView(LoginRequiredMixin, View):
-    template_name = "view_note.html"
-    login_url = '/sign_in/'
+# class NoteView(LoginRequiredMixin, View):
+#     template_name = "view_note.html"
+#     login_url = '/sign_in/'
 
-    def get(self, request, *args, **kwargs):
-        subject_id = self.kwargs['id']
-        context = {'subject_id': subject_id}
-        notes = get_object_or_404(Notes, id=subject_id)
-        user_profile = Profile.objects.filter(user=notes.upload_by)
-        if user_profile.exists() and user_profile.last().user == self.request.user:
-            context.update({'usertype': user_profile.last().user_type})
-        links = str(notes.links)
-        # make youtube link as embed
-        if 'watch?v=' in links:
-            links = links.split("watch?v=")[-1]
-        elif '?feature=shared' in links:
-            removed_text = links.replace("?feature=shared",'')
-            links = removed_text.split('/')[-1]
-        context.update({'links': links})
-        # filter all doc of notes
-        subjects = ['Computer', 'Physics', 'Chemistry', 'Mathematics', 'Biology']
-        classes = [6, 7, 8, 9, 10, 11, 12]
-        context.update({'note': notes, 'subjects': subjects, 'classes': classes})
+#     def get(self, request, *args, **kwargs):
+#         subject_id = self.kwargs['id']
+#         context = {'subject_id': subject_id}
+#         notes = get_object_or_404(Notes, id=subject_id)
+#         user_profile = Profile.objects.filter(user=notes.upload_by)
+#         if user_profile.exists() and user_profile.last().user == self.request.user:
+#             context.update({'usertype': user_profile.last().user_type})
+#         links = str(notes.links)
+#         # make youtube link as embed
+#         if 'watch?v=' in links:
+#             links = links.split("watch?v=")[-1]
+#         elif '?feature=shared' in links:
+#             removed_text = links.replace("?feature=shared",'')
+#             links = removed_text.split('/')[-1]
+#         context.update({'links': links})
+#         # filter all doc of notes
+#         subjects = ['Computer', 'Physics', 'Chemistry', 'Mathematics', 'Biology']
+#         classes = [6, 7, 8, 9, 10, 11, 12]
+#         context.update({'note': notes, 'subjects': subjects, 'classes': classes})
         
-        return render(self.request, self.template_name, context) 
+#         return render(self.request, self.template_name, context) 
     
-    def post(self, request, *args, **kwargs):
+#     def post(self, request, *args, **kwargs):
 
-        post_data = self.request.POST
-        note_id = post_data.get('id')
-        user_id = post_data.get('user')
-        subject = post_data.get('subject')
-        class_standard = post_data.get('class_standard')
-        topic = post_data.get('topic')
-        details = post_data.get('details')
-        links = post_data.get('links')
-        user = User.objects.filter(username=user_id)
-        # get local current date time
-        timezone.activate('Asia/Kolkata')
-        current_datetime = timezone.localtime(timezone.now())
-        # save notes
-        note_instance = get_object_or_404(Notes, id=note_id)
-        note_instance.subject_name = subject
-        note_instance.class_standard = class_standard
-        note_instance.topic = topic
-        note_instance.description = details
-        note_instance.created_at = current_datetime
-        note_instance.links = links
-        note_instance.save()
+#         post_data = self.request.POST
+#         note_id = post_data.get('id')
+#         user_id = post_data.get('user')
+#         subject = post_data.get('subject')
+#         class_standard = post_data.get('class_standard')
+#         topic = post_data.get('topic')
+#         details = post_data.get('details')
+#         links = post_data.get('links')
+#         user = User.objects.filter(username=user_id)
+#         # get local current date time
+#         timezone.activate('Asia/Kolkata')
+#         current_datetime = timezone.localtime(timezone.now())
+#         # save notes
+#         note_instance = get_object_or_404(Notes, id=note_id)
+#         note_instance.subject_name = subject
+#         note_instance.class_standard = class_standard
+#         note_instance.topic = topic
+#         note_instance.description = details
+#         note_instance.created_at = current_datetime
+#         note_instance.links = links
+#         note_instance.save()
        
-        messages.info(self.request, ' Note Added ')
+#         messages.info(self.request, ' Note Added ')
 
-        return HttpResponseRedirect(self.request.path_info)
+#         return HttpResponseRedirect(self.request.path_info)
 
 
-class DeleteNoteView(LoginRequiredMixin, View):
-    login_url = '/sign_in/'
+# class DeleteNoteView(LoginRequiredMixin, View):
+#     login_url = '/sign_in/'
 
-    def post(self, request, *args, **kwargs):
-        note_id = self.kwargs['id']
-        note_instance = get_object_or_404(Notes, id=note_id)
-        note_instance.delete()
-        messages.info(self.request, 'Note Deleted ')
-        return redirect('notes')
+#     def post(self, request, *args, **kwargs):
+#         note_id = self.kwargs['id']
+#         note_instance = get_object_or_404(Notes, id=note_id)
+#         note_instance.delete()
+#         messages.info(self.request, 'Note Deleted ')
+#         return redirect('notes')
     
 
 def chatgpt(topic):
