@@ -157,7 +157,8 @@ class MyPasswordResetView(View):
                     server.send_message(mail_info)
                 messages.info(self.request, f'Reset Password Mail Sent to {user.username}')
                 return redirect('home')
-            except:
+            except Exception as e:
+                print(e, 'error')
                 return HttpResponse('Invalid header found.')
         else: 
             messages.info(self.request, 'User not exists !!')
@@ -397,17 +398,17 @@ def chatgpt(topic):
     return response_json
         
 
-class chatAiView(LoginRequiredMixin, View):
-    login_url = '/sign_in/'
-    template_name = 'chatai.html'
+# class chatAiView(LoginRequiredMixin, View):
+#     login_url = '/sign_in/'
+#     template_name = 'chatai.html'
 
-    def get(self, request, *args, **kwargs):
-        return render(self.request, self.template_name)
+#     def get(self, request, *args, **kwargs):
+#         return render(self.request, self.template_name)
     
-    def post(self, request, *args, **kwargs):
-        topic = self.request.POST.get('topic')
-        data = chatgpt(topic)
-        return JsonResponse(data)
+#     def post(self, request, *args, **kwargs):
+#         topic = self.request.POST.get('topic')
+#         data = chatgpt(topic)
+#         return JsonResponse(data)
     
 
 class ParentalGuidanceView(LoginRequiredMixin, View):

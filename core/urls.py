@@ -17,7 +17,7 @@ urlpatterns = [
 #     path('view_note/<int:id>/',NoteView.as_view(), name='view-note'),
 #     path('update_note/<str:id>/',AllNotesView.as_view(), name='update-note'),
 #     path('delete_note/<str:id>/',DeleteNoteView.as_view(), name='delete-note'),
-    path('ai_notes/', chatAiView.as_view(), name="ai-notes"),
+    # path('ai_notes/', chatAiView.as_view(), name="ai-notes"),
     path('parental_guide/', ParentalGuidanceView.as_view(), name="parental-guide"),
     path('reset_password/',
          MyPasswordResetView.as_view(),
